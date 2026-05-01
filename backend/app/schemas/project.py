@@ -24,10 +24,11 @@ class ProjectResponse(ProjectBase):
 
 class ProjectMemberResponse(BaseModel):
     user_id: UUID
-    project_id: UUID
     role: RoleEnum
+    email: Optional[str] = None 
     
-    model_config = ConfigDict(from_attributes=True)
+    class Config:
+        from_attributes = True
 
 class ProjectMemberCreate(BaseModel):
     email: EmailStr

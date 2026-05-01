@@ -7,7 +7,7 @@ export function Button({ children, variant = 'primary', size = 'md', loading, di
     alignItems: 'center',
     justifyContent: 'center',
     gap: '8px',
-    borderRadius: 'var(--radius-md)',
+    borderRadius: '8px',
     fontFamily: 'var(--font-display)',
     fontWeight: 600,
     letterSpacing: '0.02em',
@@ -16,11 +16,13 @@ export function Button({ children, variant = 'primary', size = 'md', loading, di
     opacity: disabled || loading ? 0.6 : 1,
     border: 'none',
   }
+
   const sizes = {
-    sm: { padding: '8px 16px', fontSize: '0.875rem' },
-    md: { padding: '12px 24px', fontSize: '0.9375rem' },
-    lg: { padding: '14px 32px', fontSize: '1rem' },
+    sm: { padding: '8px 16px', minHeight: '36px', fontSize: '0.875rem' },
+    md: { padding: '12px 24px', minHeight: '44px', fontSize: '0.9375rem' },
+    lg: { padding: '14px 32px', minHeight: '52px', fontSize: '1rem' },
   }
+
   const variants = {
     primary: { background: 'var(--accent)', color: '#fff' },
     secondary: { background: 'var(--bg-elevated)', color: 'var(--text-primary)', border: '1px solid var(--border)' },
@@ -178,14 +180,14 @@ export function Textarea({ label, error, ...props }) {
 
 // ── Badge ──────────────────────────────────────────────────────────────────────
 const BADGE_VARIANTS = {
-  todo:        { bg: 'var(--info-dim)',    color: 'var(--info)',    label: 'To Do' },
+  todo: { bg: 'var(--info-dim)', color: 'var(--info)', label: 'To Do' },
   in_progress: { bg: 'var(--warning-dim)', color: 'var(--warning)', label: 'In Progress' },
-  done:        { bg: 'var(--success-dim)', color: 'var(--success)', label: 'Done' },
-  low:         { bg: 'var(--success-dim)', color: 'var(--success)', label: 'Low' },
-  medium:      { bg: 'var(--warning-dim)', color: 'var(--warning)', label: 'Medium' },
-  high:        { bg: 'var(--danger-dim)',  color: 'var(--danger)',  label: 'High' },
-  admin:       { bg: 'var(--accent-dim)',  color: 'var(--accent)',  label: 'Admin' },
-  member:      { bg: 'var(--bg-elevated)', color: 'var(--text-secondary)', label: 'Member' },
+  done: { bg: 'var(--success-dim)', color: 'var(--success)', label: 'Done' },
+  low: { bg: 'var(--success-dim)', color: 'var(--success)', label: 'Low' },
+  medium: { bg: 'var(--warning-dim)', color: 'var(--warning)', label: 'Medium' },
+  high: { bg: 'var(--danger-dim)', color: 'var(--danger)', label: 'High' },
+  admin: { bg: 'var(--accent-dim)', color: 'var(--accent)', label: 'Admin' },
+  member: { bg: 'var(--bg-elevated)', color: 'var(--text-secondary)', label: 'Member' },
 }
 
 export function Badge({ type, children }) {
