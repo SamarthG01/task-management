@@ -105,6 +105,9 @@ async def update_task_status(
     # 3. UPDATE TASK
     if task_update.status:
         task.status = task_update.status
+
+    if task_update.assigned_to is not None and is_admin: 
+        task.assigned_to = task_update.assigned_to
         
     await session.commit()
     await session.refresh(task)

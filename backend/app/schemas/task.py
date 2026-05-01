@@ -20,6 +20,7 @@ class TaskCreate(TaskBase):
 # Expected payload for a Member updating a task (e.g., dragging it to "Done")
 class TaskUpdate(BaseModel):
     status: Optional[StatusEnum] = None
+    assigned_to: Optional[UUID] = None
 
 # Data returned to the frontend
 class TaskResponse(TaskBase):

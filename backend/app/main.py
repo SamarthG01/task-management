@@ -11,16 +11,16 @@ app = FastAPI(
     openapi_url="/openapi.json"
 )
 
-# CORS configuration - crucial for connecting your React frontend later
+# CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # In production, change to your frontend's URL
+    allow_origins=["*"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include the Auth Router
+# Auth Router
 app.include_router(auth_router, prefix="/api/v1/auth", tags=["Authentication"])
 app.include_router(projects_router, prefix="/api/v1/projects", tags=["Projects"])
 app.include_router(tasks_router, prefix="/api/v1/tasks", tags=["Tasks"])
