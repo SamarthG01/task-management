@@ -56,7 +56,7 @@ export const projectsAPI = {
 // ── Tasks ─────────────────────────────────────────────────────────────────────
 export const tasksAPI = {
   create: (data) => api.post('/tasks/', data),
-  getMyTasks: () => api.get('/tasks/my-tasks'),
+  getMyTasks: () => api.get('/tasks/me'),
   update: (taskId, data) => api.patch(`/tasks/${taskId}`, data),
 }
 

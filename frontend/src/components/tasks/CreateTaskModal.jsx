@@ -85,7 +85,7 @@ export default function CreateTaskModal({ isOpen, onClose, projectId, members, o
           <option value="">Unassigned</option>
           {members.map((m) => (
             <option key={m.user_id} value={m.user_id}>
-              {m.user_id} ({m.role})
+              {m.email || m.user_id} ({m.role})
             </option>
           ))}
         </Select>

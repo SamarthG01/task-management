@@ -29,5 +29,6 @@ class TaskResponse(TaskBase):
     assigned_to: Optional[UUID]
     created_by: UUID
     created_at: datetime
+    assignee_email: Optional[str] = None
     
     model_config = ConfigDict(from_attributes=True)

@@ -244,6 +244,10 @@ export default function ProjectDetailPage() {
 }
 
 function MemberRow({ member, isAdmin, currentUserId, onRemove }) {
+  // Use member.email since our backend passes the actual Name through this variable!
+  // We use a fallback just in case it ever loads empty.
+  const displayName = member.email || member.user_id;
+
   return (
     <Card style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 18px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -255,10 +259,12 @@ function MemberRow({ member, isAdmin, currentUserId, onRemove }) {
           fontSize: '0.8rem', fontFamily: 'var(--font-display)', fontWeight: 700,
           color: member.role === 'admin' ? 'var(--accent)' : 'var(--text-secondary)',
         }}>
-          {member.user_id.slice(0, 2).toUpperCase()}
+          {/* Print the first 2 letters of their actual Name! */}
+          {displayName.slice(0, 2).toUpperCase()}
         </div>
         <div>
-          <p style={{ fontSize: '0.875rem', fontWeight: 500 }}>{member.user_id}</p>
+          {/* Print the full Name! */}
+          <p style={{ fontSize: '0.875rem', fontWeight: 500 }}>{displayName}</p>
           <Badge type={member.role} />
         </div>
       </div>

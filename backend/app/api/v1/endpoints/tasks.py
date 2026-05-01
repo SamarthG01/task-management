@@ -14,6 +14,25 @@ from app.schemas.task import TaskCreate, TaskResponse
 
 router = APIRouter()
 
+@router.get("/me", response_model=List[TaskResponse])
+async def get_my_tasks(
+    current_user: Annotated[User, Depends(get_current_user)],
+    session: Annotated[AsyncSession, Depends(get_db)]
+):
+    result = await session.execute(
+        select(Task, User.name.label("email"))
+        .join(User, Task.assigned_to == User.id)
+        .where(Task.assigned_to == current_user.id)
+    )
+    
+    tasks_response = []
+    for task_obj, actual_name in result.all():
+        task_data = {column.name: getattr(task_obj, column.name) for column in task_obj.__table__.columns}
+        task_data["assignee_email"] = actual_name
+        tasks_response.append(task_data)
+        
+    return tasks_response
+
 @router.post("/", response_model=TaskResponse, status_code=status.HTTP_201_CREATED)
 async def create_task(
     task_in: TaskCreate,
@@ -55,19 +74,25 @@ async def create_task(
     
     return new_task
 
-@router.get("/my-tasks", response_model=List[TaskResponse])
-async def get_my_tasks(
+@router.get("/{project_id}/tasks", response_model=List[TaskResponse])
+async def get_project_tasks(
+    project_id: UUID,
     current_user: Annotated[User, Depends(get_current_user)],
     session: Annotated[AsyncSession, Depends(get_db)]
 ):
-    """
-    Get all tasks assigned specifically to the logged-in user.
-    """
-    query = select(Task).where(Task.assigned_to == current_user.id)
-    result = await session.execute(query)
-    tasks = result.scalars().all()
+    result = await session.execute(
+        select(Task, User.email)
+        .outerjoin(User, Task.assigned_to == User.id)
+        .where(Task.project_id == project_id)
+    )
     
-    return tasks
+    tasks_response = []
+    for task_obj, email in result.all():
+        task_data = {column.name: getattr(task_obj, column.name) for column in task_obj.__table__.columns}
+        task_data["assignee_email"] = email
+        tasks_response.append(task_data)
+        
+    return tasks_response
 
 @router.patch("/{task_id}", response_model=TaskResponse)
 async def update_task_status(
