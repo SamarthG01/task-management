@@ -8,7 +8,7 @@
 
 🔗 **Application URL:** `https://<your-railway-domain>.up.railway.app`
 
-📁 **GitHub Repository:** `https://github.com/<your-username>/taskflow`
+📁 **GitHub Repository:** `https://github.com/SamarthG01/taskflow`
 
 ---
 
